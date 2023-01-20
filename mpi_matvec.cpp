@@ -3,14 +3,19 @@
 #include <iostream>
 #include <vector>
 
-void generate_matrix() {}
-
-void matvec() {
-    int a = 1;
-    int b = 2;
+// MxN partitioned matrix
+void generate_matrix(double* M, size_t M, size_t N) {
+    for (auto i = 0; i < M; i++) {
+        for (auto i = 0; i < M; i++) {
+        }
+    }
 }
 
-int main(int argc, char *argv[]) {
+void matvec() {
+    // impl.
+}
+
+int main(int argc, char* argv[]) {
     int rank, size;
 
     MPI_Init(&argc, &argv);
