@@ -1,10 +1,10 @@
 CXXFLAGS=-O3 -Wall
-all: mpi_matvec.out
+all: mpi_hello.out
 
-mpi_matvec.out: mpi_matvec.cpp
+mpi_hello.out: mpi_hello.cpp
 	mpic++ $(CXXFLAGS) $< -o $@
 
-run: mpi_matvec.out
+run: mpi_hello.out
 	mpirun -np 4 $<
 
 clean:
