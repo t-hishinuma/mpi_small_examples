@@ -33,10 +33,10 @@ int main(int argc, char* argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    size_t M = 2;
+    size_t M = 3;
     size_t N = M * size;
-    std::vector<double> A(M * (M * size));  // if PE=4, 3x12
-    std::vector<double> v(M);               // 3
+    std::vector<double> A(M * N);
+    std::vector<double> v(M);
 
     random_array(A);
     random_array(v);
