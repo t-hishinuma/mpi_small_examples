@@ -27,4 +27,4 @@ However, it needs temp. global vector.
 I will impl. improved version 5_matvec_commT
 
 ### 5_matvec_commT
-TBC
+not implemented...
