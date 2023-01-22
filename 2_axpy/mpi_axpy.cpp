@@ -4,7 +4,7 @@
 #include <random>
 #include <vector>
 
-// for debug
+// axpy: y = alpha * x + y
 void print_vec(std::vector<double>& vec, int rank);
 void random_array(std::vector<double>& vec);
 
@@ -44,10 +44,10 @@ void print_vec(std::vector<double>& vec, int rank) {
 
 void random_array(std::vector<double>& array) {
     std::random_device random;
-    std::mt19937 mt(random());
+    std::mt19937 mt(random());  // FIXME
     std::uniform_real_distribution<> rand(0.0, 1.0);
 
-    for (size_t i = 0; i < vec.size(); i++) {
+    for (size_t i = 0; i < array.size(); i++) {
         array[i] = rand(mt);
     }
 }
