@@ -38,8 +38,8 @@ int main(int argc, char* argv[]) {
     std::vector<double> A(M * (M * size));
     std::vector<double> v(M);
 
-    std::vector<int> comm_index(N - M);
-    std::vector<int> comm_value(N - M);
+    std::vector<int> comm_node(N - M);   // recv. from
+    std::vector<int> comm_index(N - M);  // recv. place index
 
     random_array(A);
     random_array(v);
