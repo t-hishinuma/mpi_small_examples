@@ -45,30 +45,27 @@ int main(int argc, char* argv[]) {
     random_array(v);
 
     // IMPL HERE
-    for (size_t i = 0; i < (size - 1); i++) {
-        for (size_t i = 0; i < commT.size(); i++) {
-            for () }
 
-        matvec(A.data(), v.data(), v.data(), M, M, N,
-               MPI_COMM_WORLD);  // v = Av
+    matvec(A.data(), v.data(), v.data(), M, M, N,
+           MPI_COMM_WORLD);  // v = Av
 
-        print_vec(v, rank);
+    print_vec(v, rank);
 
-        MPI_Finalize();
+    MPI_Finalize();
+}
+
+void print_vec(std::vector<double>& vec, int rank) {
+    for (auto i = 0; i < vec.size(); i++) {
+        std::cout << vec[i] << "," << rank << std::endl;
     }
+}
 
-    void print_vec(std::vector<double> & vec, int rank) {
-        for (auto i = 0; i < vec.size(); i++) {
-            std::cout << vec[i] << "," << rank << std::endl;
-        }
+void random_array(std::vector<double>& array) {
+    std::random_device random;
+    std::mt19937 mt(random());  // FIXME
+    std::uniform_real_distribution<> rand(0.0, 1.0);
+
+    for (size_t i = 0; i < array.size(); i++) {
+        array[i] = rand(mt);
     }
-
-    void random_array(std::vector<double> & array) {
-        std::random_device random;
-        std::mt19937 mt(random());  // FIXME
-        std::uniform_real_distribution<> rand(0.0, 1.0);
-
-        for (size_t i = 0; i < array.size(); i++) {
-            array[i] = rand(mt);
-        }
-    }
+}
