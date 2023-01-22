@@ -12,11 +12,11 @@ void print_vec(std::vector<double>& vec, int rank);
 void random_array(std::vector<double>& vec);
 
 void matvec(const double* local_A, const double* local_x, double* local_y,
-            int M, int N, int global_N, MPI_Comm comm) {
+            int local_M, int local_N, int global_N, MPI_Comm comm) {
     double* x = (double*)malloc(global_N * sizeof(double));
-    MPI_Allgather(local_x, N, MPI_DOUBLE, x, N, MPI_DOUBLE, comm);
+    MPI_Allgather(local_x, local_N, MPI_DOUBLE, x, local_N, MPI_DOUBLE, comm);
 
-    for (size_t i = 0; i < M; i++) {
+    for (size_t i = 0; i < local_M; i++) {
         double tmp = 0.0;
         for (size_t j = 0; j < global_N; j++) {
             tmp += local_A[i * global_N + j] * x[j];
@@ -24,7 +24,7 @@ void matvec(const double* local_A, const double* local_x, double* local_y,
         local_y[i] = tmp;
     }
     free(x);
-} /* Mat_vect_mult */
+}
 
 // main and utils are written in C++
 int main(int argc, char* argv[]) {
@@ -41,8 +41,10 @@ int main(int argc, char* argv[]) {
     random_array(A);
     random_array(v);
 
-    matvec(A.data(), v.data(), v.data(), M, N, rank * M,
+    matvec(A.data(), v.data(), v.data(), M, M, N,
            MPI_COMM_WORLD);  // v = Av
+
+    print_vec(v, rank);
 
     MPI_Finalize();
 }
@@ -59,6 +61,6 @@ void random_array(std::vector<double>& array) {
     std::uniform_real_distribution<> rand(0.0, 1.0);
 
     for (size_t i = 0; i < array.size(); i++) {
-        array[i] = 1 + rand(mt);
+        array[i] = rand(mt);
     }
 }
